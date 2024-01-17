@@ -34,10 +34,13 @@ pipeline{
         }
   
       stage('Docker Deploy'){
+            agent {
+                label  "ToAnsible"
+            }
             steps{
                 echo 'You should use the ansiblePlaybook syntax in order to call your playbook'
                 echo 'But before that you need to create an agent in order to execute the playbook on the Ansible controle node machine'
-                ansibleplaybook credentialsId: 
+                ansiblePlaybook playbook: 'your-ansible-playbook.yml', inventory: 'your-inventory-file.ini' 
             }
         }        
     }
