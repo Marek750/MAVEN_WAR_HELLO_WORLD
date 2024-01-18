@@ -33,7 +33,7 @@
     - name: Pull image and create the container using docker_container
       community.general.docker_container:
         name: "buli750/final"
-        image: "your_image_name"
+        image: "buli750/final"
         state: present
         restart_policy: always
         env:
