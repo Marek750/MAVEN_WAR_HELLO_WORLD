@@ -29,7 +29,7 @@
     - name: log into docker hub registry using the docker_login module
       community.general.docker_login:
         username: "buli750"
-        password: "Kawizx7r14"
+        password: "--------"
     - name: Pull image and create the container using docker_container
       community.general.docker_container:
         name: "wizardly_cerf"
