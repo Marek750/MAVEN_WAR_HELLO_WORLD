@@ -7,4 +7,4 @@ FROM tomcat:8
 WORKDIR /usr/local/tomcat/webapps/
 
 # Copy the WAR file from the target directory to the webapps directory
-COPY target/your-app.war ./
+COPY target/spring-boot-deployment.war ./
