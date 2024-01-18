@@ -41,7 +41,7 @@ pipeline{
                 echo 'You should use the ansiblePlaybook syntax in order to call your playbook'
                 echo 'But before that you need to create an agent in order to execute the playbook on the Ansible controle node machine'
                 ansiblePlaybook (
-                        credentialsId: 'docker',
+                        credentialsId: 'b4115b72-55a2-4a11-87a4-651b4a5e66a9',
                         installation: 'ansible',
                         inventory: 'dev.inv',
                         playbook: 'deploy-doker.yml'
