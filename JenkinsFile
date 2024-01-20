@@ -18,9 +18,9 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                echo 'In this step you should build your docker image using the docker build command'
+                echo 'In this step, you should build your docker image using the docker build command'
                 echo 'So you need to build an image from the WAR that you generated previously'
-                echo 'Remember that starting point of your image should be tomcat in order to serve the application on the web'
+                echo 'Remember that starting point of your image should be tomcat to serve the application on the web'
                 bat "docker build . -t buli750/final"
             }
         }
@@ -31,8 +31,7 @@ pipeline {
                 echo 'And for that, you need to create the appropriate credentials to access the Docker Hub account in Jenkins'
 
                 bat "docker login -u %DOCKER_CREDENTIALS_USR% -p %DOCKER_CREDENTIALS_PSW%"
-                }
-
+                
                 bat "docker push buli750/final:latest"
             }
         }
@@ -42,7 +41,7 @@ pipeline {
                 label "ToAnsible"
             }
             steps {
-                echo 'You should use the ansiblePlaybook syntax in order to call your playbook'
+                echo 'You should use the ansiblePlaybook syntax to call your playbook'
                 echo 'But before that, you need to create an agent to execute the playbook on the Ansible control node machine'
 
                 ansiblePlaybook(
