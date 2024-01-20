@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_CREDENTIALS = credentials('docker-hub-pass')
+        DOCKER_CREDENTIALS = credentials('b4115b72-55a2-4a11-87a4-651b4a5e66a9')
     }
 
     stages {
@@ -31,7 +31,7 @@ pipeline {
                 echo 'And for that, you need to create the appropriate credentials to access the Docker Hub account in Jenkins'
 
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-pass', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: 'b4115b72-55a2-4a11-87a4-651b4a5e66a9', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                         sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
                     }
                 }
