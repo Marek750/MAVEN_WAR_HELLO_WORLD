@@ -29,7 +29,7 @@ pipeline{
                 withCredentials([usernamePassword(credentialsId: 'b4115b72-55a2-4a11-87a4-651b4a5e66a9', passwordVariable: "passWord", usernameVariable: "userName")]) {
                 bat "docker login -u ${env.userName} -p ${env.passWord}"
                 }
-                bat "docker push buli750/final"
+                bat "docker push buli750/final:latest"
             }
         }
   
