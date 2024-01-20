@@ -28,8 +28,7 @@ pipeline{
                 echo 'And for that you need to create the appropriate credentials to access the github account in Jenkins'
                 echo 'Then you need to push this image to the public registry dockerhub into your account'
                 echo 'Use the docker push command'
-                withCredentials([usernamePassword(credentialsId: 'b4115b72-55a2-4a11-87a4-651b4a5e66a9', passwordVariable: "passWord", usernameVariable: "userName")]) {
-                bat "docker login -u ${env.userName} -p ${env.passWord}"
+                sh "docker -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}"
                 }
                 bat "docker push buli750/final:latest"
             }
