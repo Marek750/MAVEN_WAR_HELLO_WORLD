@@ -29,8 +29,7 @@
         state: started
         enabled: yes        
     - name: log into docker hub registry using the docker_login module
-        shell:
-        docker login -u "buli750" -p "Kawizx7r14"
+        shell: docker login -u "buli750" -p "Kawizx7r14"
     - name: Pull image and create the container using docker_container
       docker_image:
         name: buli750/final:latest
