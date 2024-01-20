@@ -4,8 +4,7 @@ pipeline{
       maven 'MVN_HOME'
     }
     environment {
-        DOCKER_USERNAME = credentials('DOCKER_USERNAME')
-        DOCKER_PASSWORD = credentials('DOCKER_PASSWORD')
+        DOCKER_CREDENTIALS = credentials('docker-hub-pass')
         }
     stages{
        stage('Maven Build') {
