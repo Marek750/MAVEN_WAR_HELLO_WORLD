@@ -24,11 +24,40 @@
           - docker-buildx-plugin
           - docker-compose-plugin
         state: present
+        
     - name: Start Docker service using the systemd module
       systemd:
         name: docker
         state: started
         enabled: yes
+        
+    - name: Start Docker service using the systemd module
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+        
+    - name: Install Python
+      yum:
+        name:
+          - python
+        state: present      
+
+    - name: Download get-pip.py
+      get_url:
+        url: https://bootstrap.pypa.io/pip/2.7/get-pip.py
+        dest: /tmp/get-pip.py
+
+    - name: Install pip
+      command: python /tmp/get-pip.py
+
+    - name: Upgrade pip
+      command: pip install --upgrade pip
+
+    - name: Install docker-SDK
+      pip:
+        name: docker
+
     - name: Pull image and create the container using docker_container
       docker_image:
         name: buli750/final:latest
