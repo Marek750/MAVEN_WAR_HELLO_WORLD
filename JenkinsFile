@@ -32,7 +32,7 @@ pipeline{
                 }
                 bat "docker push buli750/final:latest"
             }
-        }
+        
   
       stage('Docker Deploy'){
             agent {
