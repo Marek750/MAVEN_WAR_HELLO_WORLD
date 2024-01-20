@@ -1,49 +1,60 @@
-pipeline{
+pipeline {
     agent any
+
     tools {
-      maven 'MVN_HOME'
+        maven 'MVN_HOME'
     }
+
     environment {
         DOCKER_CREDENTIALS = credentials('docker-hub-pass')
+    }
+
+    stages {
+        stage('Maven Build') {
+            steps {
+                bat "mvn clean package"  
+            }
         }
-    stages{
-       stage('Maven Build') {
-         steps {
-         bat "mvn clean package"  
-         }
-       }
-       
-      stage('Docker Build'){
-            steps{
+
+        stage('Docker Build') {
+            steps {
                 echo 'In this step you should build your docker image using the docker build command'
                 echo 'So you need to build an image from the WAR that you generated previously'
                 echo 'Remember that starting point of your image should be tomcat in order to serve the application on the web'
-                bat "docker build . -t buli750/final" 
+                bat "docker build . -t buli750/final"
             }
         }
-        
-      stage('DockerHub Push'){
-            steps{
-                echo 'You should first login to your github account using the withCredentials synatx'
-                echo 'And for that you need to create the appropriate credentials to access the github account in Jenkins'
-                echo 'Then you need to push this image to the public registry dockerhub into your account'
-                echo 'Use the docker push command'
-                sh "docker -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}"
+
+        stage('DockerHub Push') {
+            steps {
+                echo 'You should first login to your Docker Hub account using the withCredentials syntax'
+                echo 'And for that, you need to create the appropriate credentials to access the Docker Hub account in Jenkins'
+
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-pass', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                        sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                    }
                 }
+
                 bat "docker push buli750/final:latest"
             }
         }
-  
-      stage('Docker Deploy'){
+
+        stage('Docker Deploy') {
             agent {
-                label  "ToAnsible"
+                label "ToAnsible"
             }
-            steps{
+            steps {
                 echo 'You should use the ansiblePlaybook syntax in order to call your playbook'
-                echo 'But before that you need to create an agent in order to execute the playbook on the Ansible controle node machine'
-                 ansiblePlaybook credentialsId: '01e2dbfc-a992-41ad-84dc-c6e5c42cf356', installation: 'ansible', inventory: 'dev.inv', playbook: 'deploy-docker.yml'
-                 }
+                echo 'But before that, you need to create an agent to execute the playbook on the Ansible control node machine'
 
+                ansiblePlaybook(
+                    credentialsId: '01e2dbfc-a992-41ad-84dc-c6e5c42cf356',
+                    installation: 'ansible',
+                    inventory: 'dev.inv',
+                    playbook: 'deploy-docker.yml'
+                )
             }
-        }        
-
+        }
+    }
+}
