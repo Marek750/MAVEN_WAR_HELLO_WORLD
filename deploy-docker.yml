@@ -29,20 +29,18 @@
         state: started
         enabled: yes        
     - name: log into docker hub registry using the docker_login module
-      community.general.docker_login:
-        username: "buli750"
-        password: "Kawizx7r14"
+        shell:
+        docker login -u "buli750" -p "Kawizx7r14"
     - name: Pull image and create the container using docker_container
-      community.general.docker_container:
-        name: "wizardly_cerf"
-        image: "buli750/final:latest"
-        state: present
-        restart_policy: always
-        env:
-          - "ENV_VARIABLE=value"
-        ports:
-          - "host_port:container_port"    
+      docker_image:
+        name: buli750/final:latest
+        source: pull      
     - name: Start the container using docker_container
-      community.general.docker_container:
-        name: "buli750/final"
+      docker_container:
+        name: tomcat_devops
+        image: buli750/final:latest
         state: started
+        tty: true
+        auto_remove: true
+        ports:
+          - "8080:8080"
