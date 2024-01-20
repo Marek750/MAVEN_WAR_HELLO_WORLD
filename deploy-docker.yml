@@ -1,6 +1,6 @@
 ---
 - name: Install
-  hosts: 192.168.8.101 
+  hosts: localhost 
   become: True
   become_user: root
   gather_facts: false
