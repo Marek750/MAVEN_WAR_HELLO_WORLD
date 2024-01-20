@@ -1,6 +1,6 @@
 ---
 - name: Install
-  hosts: localhost 
+  hosts: linuxclient1 
   become: True
   become_user: root
   gather_facts: false
