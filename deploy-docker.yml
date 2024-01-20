@@ -3,6 +3,7 @@
   hosts: 192.168.8.101 
   become: True
   become_user: root
+  gather_facts: false
   
   tasks:
     - name: Install yum-utils (use the yum module)
