@@ -30,10 +30,7 @@ pipeline {
                 echo 'You should first login to your Docker Hub account using the withCredentials syntax'
                 echo 'And for that, you need to create the appropriate credentials to access the Docker Hub account in Jenkins'
 
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'b4115b72-55a2-4a11-87a4-651b4a5e66a9', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                        sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
-                    }
+                bat "docker login -u %DOCKER_CREDENTIALS_USR% -p %DOCKER_CREDENTIALS_PSW%"
                 }
 
                 bat "docker push buli750/final:latest"
