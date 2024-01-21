@@ -39,8 +39,7 @@
         
     - name: Install Python
       yum:
-        name:
-          - python
+        name: python
         state: present      
 
     - name: Download get-pip.py
@@ -61,7 +60,8 @@
     - name: Pull image and create the container using docker_container
       docker_image:
         name: buli750/final:latest
-        source: pull      
+        source: pull
+        
     - name: Start the container using docker_container
       docker_container:
         name: wizardly_cerf
@@ -71,3 +71,6 @@
         auto_remove: true
         ports:
           - "8080:8080"
+          
+      - name: Exit Python interpreter
+      command: echo "exit()" | ansible_python_interpreter
