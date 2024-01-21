@@ -70,4 +70,4 @@
         tty: true
         auto_remove: true
         ports:
-          - "8080:8080"
+          - "8085:8085"
