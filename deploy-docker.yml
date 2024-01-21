@@ -1,21 +1,23 @@
 ---
 - name: Install
-  hosts: 192.168.8.107 
-  become: True
+  hosts: 192.168.8.107
+  become: true
   become_user: root
   gather_facts: false
-  
+
   tasks:
     - name: Install yum-utils (use the yum module)
       yum:
         name: yum-utils
-        state: present  
+        state: present
+
     - name: Download Docker repository file using the get_url
       get_url:
         url: "https://download.docker.com/linux/centos/docker-ce.repo"
         dest: "/etc/yum.repos.d/docker-ce.repo"
-        mode: 0644
-    - name: Install Docker packages (engine) using yum module, reference https://docs.docker.com/engine/install/centos/#installation-methods
+        mode: "0644"
+
+    - name: Install Docker packages (engine) using yum module
       yum:
         name:
           - docker-ce
@@ -24,23 +26,17 @@
           - docker-buildx-plugin
           - docker-compose-plugin
         state: present
-        
+
     - name: Start Docker service using the systemd module
       systemd:
         name: docker
         state: started
         enabled: yes
-        
-    - name: Start Docker service using the systemd module
-      systemd:
-        name: docker
-        state: started
-        enabled: yes
-        
+
     - name: Install Python
       yum:
         name: python
-        state: present      
+        state: present
 
     - name: Download get-pip.py
       get_url:
@@ -61,7 +57,7 @@
       docker_image:
         name: buli750/final:latest
         source: pull
-        
+
     - name: Start the container using docker_container
       docker_container:
         name: wizardly_cerf
@@ -71,6 +67,6 @@
         auto_remove: true
         ports:
           - "8080:8080"
-          
-      - name: Exit Python interpreter
+
+    - name: Exit Python interpreter
       command: echo "exit()" | ansible_python_interpreter
