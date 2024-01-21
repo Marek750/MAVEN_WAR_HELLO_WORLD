@@ -64,7 +64,7 @@
         source: pull      
     - name: Start the container using docker_container
       docker_container:
-        name: tomcat_devops
+        name: wizardly_cerf
         image: buli750/final:latest
         state: started
         tty: true
