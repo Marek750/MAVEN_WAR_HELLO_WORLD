@@ -5,5 +5,5 @@ FROM tomcat:9
 LABEL maintainer="buli@gmail.com"
 # Copy the WAR file from the target directory to the webapps directory
 COPY target/spring-boot-deployment.war /usr/local/tomcat/webapps/
-EXPOSE 8080
+EXPOSE 8099
 CMD ["catalina.sh","run"]
